@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, Image, ImageBackground } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { Icon } from "react-native-elements";
-import SvgIcon from '@material-ui/core/SvgIcon';
 
 import { MEALS } from '../data/meals_data';
 import HeaderButton from '../components/HeaderButton';
+import { ScrollView } from 'react-native-gesture-handler';
 
 function HomeIcon(props) {
   return (
@@ -21,16 +21,34 @@ const MealDetailScreen = props => {
   const selectedMeal = MEALS.find(meal => meal.id === mealId);
 
   return (
-    <View style={styles.screen}>
-      <Text>{selectedMeal.title}</Text>
-      <Icon>add_circle</Icon>
-      <Button
-        title="Go Back to Categories"
-        onPress={() => {
-          props.navigation.popToTop();
-        }}
-      />
-    </View>
+    <ScrollView>
+      <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
+
+      <View style={ styles.details }>
+        <Text>{selectedMeal.duration}m</Text>
+        <Text>{selectedMeal.complexity.toUpperCase()}</Text>
+        <Text>{selectedMeal.affordability.toUpperCase()}</Text>
+      </View>
+
+      <View style={styles.screen}>
+        <Text style={styles.title}> Ingerediants </Text>
+        {selectedMeal.ingredients.map(ing => (
+          <Text key={ing} style={styles.list}> {ing} </Text>
+        ))}
+
+        <Text style={ styles.title }> Steps </Text>
+        {selectedMeal.steps.map(step => (
+          <Text key={step} style={styles.list}> {step} </Text>
+        ))}
+
+        <Button
+          title="Go Back to Categories"
+          onPress={() => {
+            props.navigation.popToTop();
+          }}
+        />
+      </View>
+    </ScrollView>
   );
 }; 
 
@@ -41,7 +59,7 @@ MealDetailScreen.navigationOptions = navigationData => {
     headerTitle: selectedMeal.title,
     headerRight: () => 
       <View >
-        <Icon type="ionicon" name="ios-heart" onPress={() => console.log("click de-favour")}/>
+        {/* <Icon type="ionicon" name="ios-heart" onPress={() => console.log("click de-favour")}/> */}
         <Icon type="ionicon" name="ios-heart" onPress={() => console.log("click favour")} />
       </View>
     
@@ -54,6 +72,28 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  details: {
+    flexDirection: 'row',
+    padding: 15,
+    justifyContent: 'space-around',
+  },
+  image: {
+    width: '100%',
+    height: 200,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  list:{
+    width: '90%',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    marginVertical: 10,
+    marginHorizontal: 20,
+    padding: 10,
   }
 });
 

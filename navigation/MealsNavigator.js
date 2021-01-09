@@ -1,7 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from 'react-navigation-stack';
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+// import { createBottomTabNavigator } from 'react-navigation-tabs';
 import {createAppContainer} from 'react-navigation'
 
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
@@ -13,6 +12,9 @@ import {Ionicons} from '@expo/vector-icons'
 import { MaterialIcons } from '@expo/vector-icons';
 
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
+import {createDrawerNavigator} from 'react-navigation-drawer'
+import FilterScreen from '../screens/FilterScreen'
+
 import { Platform } from 'react-native';
 
 
@@ -24,15 +26,43 @@ const MealsNavigator = createStackNavigator({
                   }   
                 },
 
-    CategoryMeals: { screen: CategoryMealsScreen, },
-    MealDetail: { screen: MealDetailScreen, },
+    CategoryMeals: { screen: CategoryMealsScreen,
+                    navigationOptions: {
+                        headerStyle : { backgroundColor: Colors.primaryColor },
+                        headerTintColor: 'white',
+                    }    
+                    },
+    MealDetail: { screen: MealDetailScreen,
+                navigationOptions: {
+                    headerStyle : { backgroundColor: Colors.primaryColor },
+                    headerTintColor: 'white',
+                }    },
 },
 { /////// this is for all pages ////////// 
     defaultNavigationOptions:{
         // headerTintColor: 'green',
     }
-}
-);
+});
+
+const FavouriteNavigator = createStackNavigator({
+    Favourite: { screen: FavouriteScreen,
+                  navigationOptions: {
+                      headerStyle : { backgroundColor: Colors.accesntColor },
+                      headerTintColor: 'white',
+                  }   
+                },
+
+    MealDetail: { screen: MealDetailScreen,
+                    navigationOptions: {
+                        headerStyle : { backgroundColor: Colors.accesntColor },
+                        headerTintColor: 'white',
+                    } },
+},
+{ /////// this is for all pages ////////// 
+    defaultNavigationOptions:{
+        // headerTintColor: 'green',
+    }
+});
 
 // const MealFavTabNavigator = Platform.OS === 'android' ? createMaterialBottomTabNavigator() : createBottomTabNavigator ({
 const MealFavTabNavigator = createMaterialBottomTabNavigator ({
@@ -43,7 +73,7 @@ const MealFavTabNavigator = createMaterialBottomTabNavigator ({
         tabBarColor: Colors.primaryColor,
     } },
 
-    Favourite: { screen: FavouriteScreen, navigationOptions: {
+    Favourite: { screen: FavouriteNavigator, navigationOptions: {
         tabBarIcon: (tabInfo) => {
             return <MaterialIcons name="favorite-outline" size={24} color={tabInfo.tintColor} />
         },
@@ -72,4 +102,30 @@ const MealFavTabNavigator = createMaterialBottomTabNavigator ({
 }
 );
 
-export default createAppContainer(MealFavTabNavigator);
+const filterNavigator = createStackNavigator({
+    Filters : {screen: FilterScreen,
+        navigationOptions: {
+            headerStyle : { backgroundColor: Colors.accesntColor },
+            headerTintColor: 'white',
+        }
+    }
+});
+
+const MainNavigator = createDrawerNavigator({
+    MealsFavs: {
+        screen: MealFavTabNavigator,
+        navigationOptions: {
+            drawerLabel: 'Meals'
+        }
+    },
+    Filters : filterNavigator,
+},
+{
+    contentOptions:{
+        activeTintColor: Colors.primaryColor
+    }
+});
+
+
+
+export default createAppContainer(MainNavigator);
