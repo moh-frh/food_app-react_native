@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, Button, StyleSheet, Image, ImageBackground } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { Icon } from "react-native-elements";
@@ -19,6 +19,12 @@ const MealDetailScreen = props => {
   const mealId = props.navigation.getParam('categoryId');
 
   const selectedMeal = MEALS.find(meal => meal.id === mealId);
+
+  const [Fav, setFav] = useState(false)
+
+  const toggleFav = () => {
+    setFav(previousState => !previousState)
+  }
 
   return (
     <ScrollView>
@@ -60,7 +66,7 @@ MealDetailScreen.navigationOptions = navigationData => {
     headerRight: () => 
       <View >
         {/* <Icon type="ionicon" name="ios-heart" onPress={() => console.log("click de-favour")}/> */}
-        <Icon type="ionicon" name="ios-heart" onPress={() => console.log("click favour")} />
+        <Icon type="ionicon" name="ios-heart"  />
       </View>
     
     
