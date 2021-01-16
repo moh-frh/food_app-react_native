@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet } from 'react-native'
 import MealItem from './MealItem';
 
 
-const MealList = (props) => {
+const MealList = (props) => { 
 
     const renderMealItem = itemData => {
         return (
@@ -15,7 +15,7 @@ const MealList = (props) => {
             affordability={itemData.item.affordability}
             onSelectMeal={() => {
                 props.navigation.navigate({
-                    routeName: 'MealDetail',
+                    routeName: 'MealDetail', 
                     params: {
                       categoryId: itemData.item.id
                     }

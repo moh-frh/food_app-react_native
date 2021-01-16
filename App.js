@@ -1,29 +1,26 @@
 import React, { Component, Suspense, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Touchable, FlatList } from 'react-native';
-// import * as Font from 'expo-font'
 import {enableScreens} from 'react-native-screens'
-
-
 import MealsNavigator from './navigation/MealsNavigator'
 
-// const fetshFonts = () => {
-//   return Font.loadAsync({
-//     'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
-//     'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
-//   });
-// };
+import {createStore, combineReducers} from 'redux'
+import mealsReducer from './store/reducers/meals'
+import {Provider} from 'react-redux'
 
+const rootReducers = combineReducers({
+  meals: mealsReducer
+});
 
+const store = createStore(rootReducers);
 
 export default function App() {
-
-  // useEffect(() => {
-  //   fetshFonts();  
-  //   }, [])
-
   enableScreens();
 
-  return <MealsNavigator/>
+  return (
+          <Provider store={store}>
+            <MealsNavigator/>
+          </Provider>
+         )
     
 }
 

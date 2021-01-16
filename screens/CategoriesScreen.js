@@ -11,7 +11,7 @@ import {HeaderButtons, Item} from 'react-navigation-header-buttons'
 import HeaderButton from '../components/HeaderButton'
 
 const CategoriesScreen = props => {
-  const renderGridItem = itemData => {
+  const renderGridItem = itemData => { 
     return ( 
       <CategoryGridTile
         title={itemData.item.title}
@@ -42,7 +42,7 @@ CategoriesScreen.navigationOptions = (navData) => {
 
   return{
   headerTitle: 'Meal Categories',
-  headerLeft: (
+  headerLeft: ()=>(
     <HeaderButtons HeaderButtonComponent={HeaderButton}>
       <Item title="menu" iconName='ios-menu' onPress={() => { navData.navigation.toggleDrawer(); }} />
     </HeaderButtons>

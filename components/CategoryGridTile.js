@@ -1,14 +1,17 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native'
+import { View, Text, StyleSheet, TouchableNativeFeedback, Image } from 'react-native'
 
 const CategoryGridTile = props => {
+    
     return (
             <View style={styles.gridItem}>
-                <TouchableNativeFeedback
+                <TouchableNativeFeedback 
                     style={{ flex:1 }}
                     onPress={props.onSelect}>
                         <View style={{ ...styles.container, backgroundColor: props.color }}>
                             <Text style={{ ...styles.title }} numberOfLines={2}>{props.title}</Text>
+                            <Image source={props.photo} style={{ width: '100%', height: '80%' }} />
+
                         </View>
                 </TouchableNativeFeedback>
             </View>
@@ -34,7 +37,6 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
     },
     title:{
-        fontFamily: "OpenSans-Bold",
         fontSize: 22,
     }
 })
