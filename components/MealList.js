@@ -34,7 +34,7 @@ const MealList = (props) => {
         
       };
 
-      if(checkFavEmpty.length ===0 || !checkFavEmpty)
+      if(checkFavEmpty.length === 0 || !checkFavEmpty)
       {
         return (
               <View style={{ flex:1, justifyContent:'center', alignItems: 'center' }}>
