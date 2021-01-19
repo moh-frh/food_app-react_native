@@ -1,11 +1,17 @@
 import React from 'react'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
 import MealItem from './MealItem';
+import {useSelector} from 'react-redux'
 
 
-const MealList = (props) => { 
+
+const MealList = (props) => {
+  
+  const checkFavEmpty = useSelector(state => state.meals.favouriteMeals);
 
     const renderMealItem = itemData => {
+      
+      
         return (
           <MealItem
             title={itemData.item.title}
@@ -17,24 +23,41 @@ const MealList = (props) => {
                 props.navigation.navigate({
                     routeName: 'MealDetail', 
                     params: {
-                      categoryId: itemData.item.id
+                      categoryId: itemData.item.id,
+                      mealTitle: itemData.item.title
                     }
                   });
             }}
           />
         );
+      
+        
       };
 
-    return (
-        <View style={styles.list}>
-            <FlatList
-                data={props.displayedMeals}
-                keyExtractor={(item, index) => item.id}
-                renderItem={renderMealItem}
-                style={{ width: '100%' }}
-            />
-        </View>
-    )
+      if(checkFavEmpty.length ===0 || !checkFavEmpty)
+      {
+        return (
+              <View style={{ flex:1, justifyContent:'center', alignItems: 'center' }}>
+                <Text>
+                  vide !!!!
+                </Text>
+              </View>
+        )
+      }
+      else{
+        return (
+          <View style={styles.list}>
+              <FlatList
+                  data={props.displayedMeals}
+                  keyExtractor={(item, index) => item.id}
+                  renderItem={renderMealItem}
+                  style={{ width: '100%' }}
+              />
+          </View>
+        )
+      }
+
+    
 }
 
 const styles = StyleSheet.create({

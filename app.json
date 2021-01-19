@@ -1,6 +1,8 @@
 {
   "expo": {
     "name": "food app",
+    "sdkVersion": "40.0.0",
+    "version": "0.1.0",
     "slug": "foodapp",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,6 +21,10 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.lopedev.myapp",
+      "versionCode": 1,
+      "permissions": [],
+      "icon": "./assets/icon.png",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
